@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F2F5F3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121A16" media="(prefers-color-scheme: dark)">
+  <title>ESP PredictAI design system</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 0;
+      overflow-x: clip;
+      scroll-behavior: auto;
+    }
+
+    body {
+      min-width: 0;
+      overflow-x: clip;
+      margin: 0;
+      background: var(--color-background);
+      color: var(--color-text);
+      font-family: var(--font-sans);
+      font-size: var(--text-body);
+      font-weight: var(--weight-regular);
+      line-height: var(--leading-body);
+    }
+
+    a {
+      color: var(--color-accent);
+      text-underline-offset: var(--space-1);
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      z-index: 1;
+      top: var(--space-2);
+      left: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-control);
+      background: var(--color-surface);
+      color: var(--color-text);
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus-visible {
+      transform: translateY(0);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: var(--focus-width) solid var(--color-focus-ring);
+      outline-offset: var(--focus-offset);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    strong {
+      font-weight: var(--weight-semibold);
+    }
+
+    h1,
+    h2,
+    h3 {
+      min-width: 0;
+      overflow-wrap: break-word;
+      font-weight: var(--weight-semibold);
+      line-height: var(--leading-tight);
+      text-wrap: balance;
+    }
+
+    h1 {
+      font-size: var(--text-display);
+    }
+
+    h2 {
+      font-size: var(--text-section);
+    }
+
+    h3 {
+      font-size: var(--text-body);
+    }
+
+    .page-shell {
+      width: min(100% - var(--space-8), 70rem);
+      margin-inline: auto;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      min-height: 4rem;
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .wordmark {
+      color: var(--color-text);
+      font-size: var(--text-label);
+      font-weight: var(--weight-semibold);
+      text-decoration: none;
+    }
+
+    .specimen-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .header-note,
+    .section-note,
+    .hint,
+    .token-value {
+      color: var(--color-muted);
+      font-size: var(--text-small);
+    }
+
+    .intro {
+      display: grid;
+      gap: var(--space-3);
+      max-width: 42rem;
+      padding-block: var(--space-10) var(--space-8);
+    }
+
+    .intro p {
+      max-width: 60ch;
+    }
+
+    .section {
+      padding-block: var(--space-8);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .section-heading p {
+      max-width: 44ch;
+      color: var(--color-muted);
+      font-size: var(--text-label);
+    }
+
+    .token-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin: 0;
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .token-item {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      align-items: center;
+      gap: var(--space-3);
+      min-width: 0;
+      padding: var(--space-4) var(--space-2);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .swatch {
+      width: 2.5rem;
+      aspect-ratio: 1;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-control);
+      background: var(--swatch-color);
+    }
+
+    .token-name {
+      display: block;
+      font-size: var(--text-label);
+      font-weight: var(--weight-semibold);
+      overflow-wrap: break-word;
+    }
+
+    .type-list {
+      display: grid;
+      gap: var(--space-4);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: minmax(7rem, 0.7fr) minmax(0, 1.3fr);
+      align-items: baseline;
+      gap: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .type-meta {
+      color: var(--color-muted);
+      font-size: var(--text-small);
+    }
+
+    .sample-display { font-size: var(--text-display); font-weight: var(--weight-semibold); }
+    .sample-section { font-size: var(--text-section); font-weight: var(--weight-semibold); }
+    .sample-body { font-size: var(--text-body); font-weight: var(--weight-regular); }
+    .sample-label { font-size: var(--text-label); font-weight: var(--weight-semibold); }
+    .sample-small { font-size: var(--text-small); font-weight: var(--weight-regular); }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: var(--space-3) var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-control);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font: var(--weight-semibold) var(--text-label)/var(--leading-body) var(--font-sans);
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color var(--motion-fast) var(--ease-standard),
+        border-color var(--motion-fast) var(--ease-standard);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .button:hover {
+      border-color: var(--color-text);
+      background: var(--color-background);
+    }
+
+    .button:active {
+      border-color: var(--color-text);
+      transform: translateY(1px);
+    }
+
+    .button--primary {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: var(--color-on-accent);
+    }
+
+    .button--primary:hover {
+      border-color: var(--color-text);
+      background: var(--color-accent);
+    }
+
+    .field-groups {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-6);
+    }
+
+    .field-group {
+      min-width: 0;
+      margin: 0;
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-surface);
+      background: var(--color-surface);
+    }
+
+    .field-group legend {
+      padding-inline: var(--space-2);
+      font-size: var(--text-label);
+      font-weight: var(--weight-semibold);
+    }
+
+    .group-fields {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .field {
+      display: grid;
+      gap: var(--space-2);
+      min-width: 0;
+    }
+
+    .field label {
+      font-size: var(--text-label);
+      font-weight: var(--weight-semibold);
+    }
+
+    .unit-control {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      min-height: 3rem;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-control);
+      background: var(--color-surface);
+    }
+
+    .unit-control:focus-within {
+      border-color: var(--color-focus-ring);
+    }
+
+    .unit-control input {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 0;
+      border-radius: var(--radius-control);
+      outline: 0;
+      background: transparent;
+      color: var(--color-text);
+      font: var(--weight-regular) var(--text-body)/var(--leading-body) var(--font-sans);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .unit-control input:focus-visible {
+      outline: var(--focus-width) solid var(--color-focus-ring);
+      outline-offset: calc(-1 * var(--focus-width));
+    }
+
+    .unit {
+      padding-inline: var(--space-4);
+      color: var(--color-muted);
+      font-size: var(--text-label);
+    }
+
+    .field-error {
+      color: var(--color-error);
+      font-size: var(--text-label);
+    }
+
+    .field-error:empty {
+      display: none;
+    }
+
+    .risk-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .result-state {
+      display: grid;
+      gap: var(--space-3);
+      min-width: 0;
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius-surface);
+      background: var(--color-surface);
+    }
+
+    .state-heading {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .state-heading svg,
+    .state-icon {
+      flex: 0 0 auto;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .state-copy {
+      color: var(--color-muted);
+      font-size: var(--text-label);
+    }
+
+    .risk--normal .state-heading { color: var(--color-risk-normal); }
+    .risk--elevated .state-heading { color: var(--color-risk-elevated); }
+    .risk--high .state-heading { color: var(--color-risk-high); }
+    .state-heading h3 { color: currentColor; }
+
+    .loading-icon {
+      animation: turn 900ms linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes turn {
+      to { transform: rotate(1turn); }
+    }
+
+    .notice {
+      display: grid;
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+      align-items: start;
+      gap: var(--space-3);
+      padding-block: var(--space-4);
+      border-top: var(--border-width) solid var(--color-border);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .notice svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--color-accent);
+    }
+
+    .notice p + p {
+      margin-top: var(--space-2);
+    }
+
+    .mobile-preview {
+      width: min(100%, 23.4375rem);
+    }
+
+    .mobile-preview-inner {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .state-heading--error {
+      color: var(--color-error);
+    }
+
+    .mobile-preview .field-groups {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+
+    .footer-note {
+      padding-block: var(--space-8);
+      color: var(--color-muted);
+      font-size: var(--text-small);
+    }
+
+    @media (max-width: 48rem) {
+      .token-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 40rem) {
+      .page-shell {
+        width: min(100% - var(--space-6), 70rem);
+      }
+
+      .site-header {
+        align-items: start;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--space-1);
+        min-height: 4.5rem;
+      }
+
+      .intro {
+        padding-block: var(--space-8) var(--space-6);
+      }
+
+      .field-groups,
+      .risk-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .type-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header page-shell">
+    <a class="wordmark" href="#main">ESP PredictAI</a>
+    <p class="header-note">Design system specimen</p>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">Reading Check Design System</h1>
+      <p>Calm, high-contrast components for a same-day ESP status check. This page shows reusable parts and states, not a working product screen.</p>
+      <nav class="specimen-nav" aria-label="Specimen sections">
+        <a href="#tokens">Tokens</a><a href="#type">Type</a><a href="#controls">Controls</a><a href="#results">Result states</a><a href="#limits">About and limits</a>
+      </nav>
+    </section>
+
+    <section id="tokens" class="section" aria-labelledby="tokens-title">
+      <div class="section-heading">
+        <h2 id="tokens-title">Colour Tokens</h2>
+        <p>Light by default; dark colours follow your device setting.</p>
+      </div>
+      <dl class="token-list">
+        <div class="token-item"><span class="swatch" style="--swatch-color:var(--color-background)" aria-hidden="true"></span><div><dt class="token-name">Background</dt><dd class="token-value">Page canvas</dd></div></div>
+        <div class="token-item"><span class="swatch" style="--swatch-color:var(--color-surface)" aria-hidden="true"></span><div><dt class="token-name">Surface</dt><dd class="token-value">Fields and results</dd></div></div>
+        <div class="token-item"><span class="swatch" style="--swatch-color:var(--color-text)" aria-hidden="true"></span><div><dt class="token-name">Text</dt><dd class="token-value">Main copy</dd></div></div>
+        <div class="token-item"><span class="swatch" style="--swatch-color:var(--color-muted)" aria-hidden="true"></span><div><dt class="token-name">Muted</dt><dd class="token-value">Hints and notes</dd></div></div>
+        <div class="token-item"><span class="swatch" style="--swatch-color:var(--color-border)" aria-hidden="true"></span><div><dt class="token-name">Border</dt><dd class="token-value">Control edges</dd></div></div>
+        <div class="token-item"><span class="swatch" style="--swatch-color:var(--color-accent)" aria-hidden="true"></span><div><dt class="token-name">Accent</dt><dd class="token-value">Primary action</dd></div></div>
+        <div class="token-item"><span class="swatch" style="--swatch-color:var(--color-focus-ring)" aria-hidden="true"></span><div><dt class="token-name">Focus ring</dt><dd class="token-value">Keyboard focus</dd></div></div>
+      </dl>
+    </section>
+
+    <section id="type" class="section" aria-labelledby="type-title">
+      <div class="section-heading">
+        <h2 id="type-title">Type Scale</h2>
+        <p>Five sizes, two weights, and the native system sans stack.</p>
+      </div>
+      <ul class="type-list">
+        <li class="type-row"><span class="type-meta">Display: 28px / 600</span><span class="sample-display">Today's readings</span></li>
+        <li class="type-row"><span class="type-meta">Section: 20px / 600</span><span class="sample-section">Pressure readings</span></li>
+        <li class="type-row"><span class="type-meta">Body: 16px / 400</span><span class="sample-body">Enter the values recorded for one day.</span></li>
+        <li class="type-row"><span class="type-meta">Label: 14px / 600</span><span class="sample-label">Intake pressure</span></li>
+        <li class="type-row"><span class="type-meta">Small: 12px / 400</span><span class="sample-small">Pressure of fluid entering the pump.</span></li>
+      </ul>
+    </section>
+
+    <section id="controls" class="section" aria-labelledby="controls-title">
+      <div class="section-heading">
+        <h2 id="controls-title">Buttons and Fields</h2>
+        <p>Visible labels, units, helper text, and a field-level error.</p>
+      </div>
+      <div class="button-row" aria-label="Button examples">
+        <button class="button button--primary" type="button">Check Readings</button>
+        <button class="button" type="button">Clear Fields</button>
+      </div>
+
+      <div class="field-groups" style="margin-top:var(--space-6)">
+        <fieldset class="field-group">
+          <legend>Pressure</legend>
+          <div class="group-fields">
+            <div class="field">
+              <label for="intake-pressure">Intake pressure <span class="hint">(psi)</span></label>
+              <div class="unit-control"><input id="intake-pressure" name="intake_pressure" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="intake-hint"><span class="unit" aria-hidden="true">psi</span></div>
+              <p class="hint" id="intake-hint">Pressure of fluid entering the pump.</p>
+            </div>
+            <div class="field">
+              <label for="discharge-pressure">Discharge pressure <span class="hint">(psi)</span></label>
+              <div class="unit-control"><input id="discharge-pressure" name="discharge_pressure" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="discharge-hint"><span class="unit" aria-hidden="true">psi</span></div>
+              <p class="hint" id="discharge-hint">Pressure of fluid leaving the pump.</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend>Temperature</legend>
+          <div class="group-fields">
+            <div class="field">
+              <label for="motor-temperature">Motor temperature <span class="hint">(°F)</span></label>
+              <div class="unit-control"><input id="motor-temperature" name="motor_temperature" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="motor-temp-hint"><span class="unit" aria-hidden="true">°F</span></div>
+              <p class="hint" id="motor-temp-hint">Temperature at the ESP motor windings.</p>
+            </div>
+            <div class="field">
+              <label for="intake-temperature">Intake temperature <span class="hint">(°F)</span></label>
+              <div class="unit-control"><input id="intake-temperature" name="intake_temperature" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="intake-temp-hint"><span class="unit" aria-hidden="true">°F</span></div>
+              <p class="hint" id="intake-temp-hint">Temperature of well fluid at the pump intake.</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend>Electrical</legend>
+          <div class="group-fields">
+            <div class="field">
+              <label for="motor-current">Motor current <span class="hint">(A)</span></label>
+              <div class="unit-control"><input id="motor-current" name="motor_amps" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="motor-current-hint"><span class="unit" aria-hidden="true">A</span></div>
+              <p class="hint" id="motor-current-hint">Electrical current drawn by the motor.</p>
+            </div>
+            <div class="field">
+              <label for="motor-voltage">Motor voltage <span class="hint">(V)</span></label>
+              <div class="unit-control"><input id="motor-voltage" name="motor_volt" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-invalid="true" aria-describedby="motor-voltage-hint motor-voltage-error"><span class="unit" aria-hidden="true">V</span></div>
+              <p class="hint" id="motor-voltage-hint">Voltage supplied to the motor.</p>
+              <p class="field-error" id="motor-voltage-error">Enter a value.</p>
+            </div>
+            <div class="field">
+              <label for="frequency">Drive frequency <span class="hint">(Hz)</span></label>
+              <div class="unit-control"><input id="frequency" name="frequency" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="frequency-hint"><span class="unit" aria-hidden="true">Hz</span></div>
+              <p class="hint" id="frequency-hint">Frequency sent by the variable speed drive.</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="field-group">
+          <legend>Pump readings</legend>
+          <div class="group-fields">
+            <div class="field">
+              <label for="vibration">Vibration <span class="hint">(g)</span></label>
+              <div class="unit-control"><input id="vibration" name="vibration" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="vibration-hint"><span class="unit" aria-hidden="true">g</span></div>
+              <p class="hint" id="vibration-hint">Measured pump vibration.</p>
+            </div>
+            <div class="field">
+              <label for="production">Production rate <span class="hint">(bbl/d)</span></label>
+              <div class="unit-control"><input id="production" name="production" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="production-hint"><span class="unit" aria-hidden="true">bbl/d</span></div>
+              <p class="hint" id="production-hint">Volume produced per day.</p>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="sample-error-title">
+      <div class="section-heading">
+        <h2 id="sample-error-title">Validation Example</h2>
+        <p>The sample field shows its label, unit, hint, and connected error.</p>
+      </div>
+      <div class="field" style="max-width:24rem">
+        <label for="sample-amps">Motor current <span class="hint">(A)</span></label>
+        <div class="unit-control"><input id="sample-amps" name="sample_motor_amps" type="number" inputmode="decimal" step="any" autocomplete="off" aria-invalid="true" aria-describedby="sample-amps-hint sample-amps-error"><span class="unit" aria-hidden="true">A</span></div>
+        <p class="hint" id="sample-amps-hint">Electrical current drawn by the motor.</p>
+        <p class="field-error" id="sample-amps-error">Enter a valid number.</p>
+      </div>
+    </section>
+
+    <section id="results" class="section" aria-labelledby="results-title">
+      <div class="section-heading">
+        <h2 id="results-title">Result Card States</h2>
+        <p>Every band has a symbol and a text label. Example scores are omitted.</p>
+      </div>
+      <ul class="risk-list">
+        <li><article class="result-state">
+          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8"></path></svg><h3>No Result Yet</h3></div>
+          <p class="state-copy">Enter the nine readings to see this day's status.</p>
+        </article></li>
+        <li><article class="result-state">
+          <div class="state-heading"><svg class="state-icon loading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" stroke-dasharray="42 14"></circle><path d="M21 12a9 9 0 0 0-9-9"></path></svg><h3>Checking Readings…</h3></div>
+          <p class="state-copy">The score and status will appear here.</p>
+        </article></li>
+        <li><article class="result-state risk--normal">
+          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg><h3>Normal</h3></div>
+          <p class="state-copy">Band: Normal. The current-reading class appears separately.</p>
+          <p class="state-copy">Model score appears after a check; it is not a calibrated chance of failure.</p>
+        </article></li>
+        <li><article class="result-state risk--elevated">
+          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6"></path><path d="M12 16h.01"></path></svg><h3>Elevated</h3></div>
+          <p class="state-copy">Band: Elevated. The current-reading class appears separately.</p>
+          <p class="state-copy">Model score appears after a check. Review readings with a qualified engineer.</p>
+        </article></li>
+        <li><article class="result-state risk--high">
+          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3 22 20H2L12 3Z"></path><path d="M12 9v5"></path><path d="M12 17h.01"></path></svg><h3>High</h3></div>
+          <p class="state-copy">Band: High. The current-reading class appears separately.</p>
+          <p class="state-copy">This prototype is not an operating alarm or diagnosis.</p>
+        </article></li>
+        <li><article class="result-state">
+          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M4 8h11M12 5l3 3-3 3M20 16H9m3-3-3 3 3 3"></path></svg><h3>Outside Training Range</h3></div>
+          <p class="state-copy">One or more readings fall outside the values seen during training. This is not an equipment limit.</p>
+        </article></li>
+        <li><article class="result-state">
+          <div class="state-heading state-heading--error"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6"></path><path d="M12 16h.01"></path></svg><h3>Can't Check These Readings</h3></div>
+          <p class="state-copy">Enter a valid value in each marked field, then try again.</p>
+        </article></li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="mobile-title">
+      <div class="section-heading">
+        <h2 id="mobile-title">375px Mobile Layout</h2>
+        <p>Field groups become one column. Units stay beside values.</p>
+      </div>
+      <div class="mobile-preview">
+        <div class="mobile-preview-inner">
+          <h3>Operating Readings</h3>
+          <p class="hint">All nine readings are required.</p>
+          <div class="field-groups">
+            <fieldset class="field-group">
+              <legend>Pressure</legend>
+              <div class="group-fields">
+                <div class="field"><label for="mobile-intake">Intake pressure <span class="hint">(psi)</span></label><div class="unit-control"><input id="mobile-intake" name="mobile_intake_pressure" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">psi</span></div></div>
+                <div class="field"><label for="mobile-discharge">Discharge pressure <span class="hint">(psi)</span></label><div class="unit-control"><input id="mobile-discharge" name="mobile_discharge_pressure" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">psi</span></div></div>
+              </div>
+            </fieldset>
+            <fieldset class="field-group">
+              <legend>Temperature</legend>
+              <div class="group-fields">
+                <div class="field"><label for="mobile-motor-temperature">Motor temperature <span class="hint">(°F)</span></label><div class="unit-control"><input id="mobile-motor-temperature" name="mobile_motor_temperature" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">°F</span></div></div>
+                <div class="field"><label for="mobile-intake-temperature">Intake temperature <span class="hint">(°F)</span></label><div class="unit-control"><input id="mobile-intake-temperature" name="mobile_intake_temperature" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">°F</span></div></div>
+              </div>
+            </fieldset>
+            <fieldset class="field-group">
+              <legend>Electrical</legend>
+              <div class="group-fields">
+                <div class="field"><label for="mobile-current">Motor current <span class="hint">(A)</span></label><div class="unit-control"><input id="mobile-current" name="mobile_motor_amps" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">A</span></div></div>
+                <div class="field"><label for="mobile-voltage">Motor voltage <span class="hint">(V)</span></label><div class="unit-control"><input id="mobile-voltage" name="mobile_motor_volt" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">V</span></div></div>
+                <div class="field"><label for="mobile-frequency">Drive frequency <span class="hint">(Hz)</span></label><div class="unit-control"><input id="mobile-frequency" name="mobile_frequency" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">Hz</span></div></div>
+              </div>
+            </fieldset>
+            <fieldset class="field-group">
+              <legend>Pump readings</legend>
+              <div class="group-fields">
+                <div class="field"><label for="mobile-vibration">Vibration <span class="hint">(g)</span></label><div class="unit-control"><input id="mobile-vibration" name="mobile_vibration" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">g</span></div></div>
+                <div class="field"><label for="mobile-production">Production rate <span class="hint">(bbl/d)</span></label><div class="unit-control"><input id="mobile-production" name="mobile_production" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">bbl/d</span></div></div>
+              </div>
+            </fieldset>
+            <button class="button button--primary" type="button">Check Readings</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="limits" class="section" aria-labelledby="limits-title">
+      <div class="section-heading">
+        <h2 id="limits-title">About and Limits</h2>
+      </div>
+      <aside class="notice" aria-label="Educational prototype notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg>
+        <div>
+          <p><strong>Educational prototype.</strong> Dataset provenance is unverified and it covers six wells. Cross-well accuracy is near chance.</p>
+          <p>This result classifies readings from one day. It does not forecast future failure or remaining life, and it is not a diagnosis or equipment limit.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="page-shell footer-note">
+    Static component specimen. No data is submitted or stored.
+  </footer>
+</body>
+</html>

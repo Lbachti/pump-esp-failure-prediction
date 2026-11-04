@@ -1,0 +1,80 @@
+/* Hallmark · v2.0.0 · genre: modern-minimal · shape: component playground · theme: Coral (manual) */
+/* Critique: keep the component specimen calm, factual, and useful without invented result data. */
+/* Waivers: static previews replace interactive code-copy blocks; Node is unavailable for the CLI. */
+
+:root {
+  color-scheme: light;
+
+  /* Colour roles: light theme */
+  --color-background: #F2F5F3;
+  --color-surface: #FFFFFF;
+  --color-text: #18221D;
+  --color-muted: #45534B;
+  --color-border: #6B776F;
+  --color-accent: #0F6A58;
+  --color-focus-ring: #0F6A58;
+  --color-on-accent: #FFFFFF;
+
+  /* Risk signals pair colour with an inline icon and a visible label. */
+  --color-risk-normal: #176B4B;
+  --color-risk-elevated: #805000;
+  --color-risk-high: #A32929;
+  --color-error: #A32929;
+
+  /* System font stack; five sizes and two weights. */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --text-small: 0.75rem;
+  --text-label: 0.875rem;
+  --text-body: 1rem;
+  --text-section: 1.25rem;
+  --text-display: 1.75rem;
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --leading-body: 1.5;
+  --leading-tight: 1.2;
+
+  /* 4/8 spacing scale. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  --radius-control: 0.5rem;
+  --radius-surface: 0.5rem;
+  --border-width: 1px;
+  --focus-width: 3px;
+  --focus-offset: 2px;
+  --shadow-rest: none;
+  --motion-fast: 140ms;
+  --motion-standard: 180ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-background: #121A16;
+    --color-surface: #1B2520;
+    --color-text: #F2F6F3;
+    --color-muted: #B9C5BE;
+    --color-border: #748279;
+    --color-accent: #83DFC6;
+    --color-focus-ring: #83DFC6;
+    --color-on-accent: #13211B;
+    --color-risk-normal: #7FE0B1;
+    --color-risk-elevated: #FFD184;
+    --color-risk-high: #FFA19B;
+    --color-error: #FFA19B;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-standard: 0ms;
+  }
+}
