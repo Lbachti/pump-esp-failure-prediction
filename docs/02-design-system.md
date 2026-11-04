@@ -1,37 +1,30 @@
-# Milestone 2: design system
+# Design system decisions
 
-## Decisions and conflict log
+`DESIGN.md` owns token values; the Hallmark modern-minimal direction owns sparse composition. The Milestone 1 three-screen outline is superseded: Check contains the nine-reading form and result on one page; About and limits is the second screen. Expert mode remains hidden until a URL is configured.
 
-No conflict with Milestone 1: this is a static specimen, not a product screen. I adapted the selected workspace reference's neutral hierarchy, form clarity, and spacing. `DESIGN.md` owns values; Hallmark owns composition and anti-template rules.
+## Owner-approved corrections
 
-| Source tension | Resolution |
+| Decision | Implementation |
 |---|---|
-| Source palette/type and branded components conflict with the new accent, five sizes, two weights, system font, and sparse scope. | Replaced values; removed hero, pricing, testimonials, logo wall, tabs, and feature cards. |
-| Hallmark's warm theme uses warm paper, texture, and letterpress depth. | Manually selected modern-minimal Coral; changed to cool sage-gray and evergreen; removed texture/shadows. |
-| Hallmark uses one accent; three risk colors are required. | Evergreen marks actions; risk hues appear only with icon and text. |
-| Component-playground suggests interactive code-copy; JavaScript is out of scope. | Static previews use adjacent `tokens.css`; no copy controls. |
+| Result headline | One band only: Low, Elevated, or High. No running/failed class. |
+| Low state | Neutral circle with no check mark. Elevated and High retain distinct colour, icon, and label. |
+| Score line | “Model score 64 of 100. This is not a probability.” Placeholder values carry a visible preview banner. |
+| Type | Hints and prototype notice use 14px / 400. 12px is reserved for non-essential metadata. |
 
-No Node/npx: manually selected `21 Component Playground` and Coral. `hallmark audit` did not run; I applied its floor manually. UI/UX Pro Max favored Minimalism & Swiss; I rejected testimonials and remote fonts. Fetched [current web guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md).
+The one-day reading context stays explicit. The prototype keeps the unverified-provenance, six-well, near-chance cross-well, and operating-decision caveats visible. Preview ranges are not equipment limits.
 
-## Contrast check
+## Token contrast
 
-Inline relative-luminance script checked CSS tokens. All text pairs exceed 4.5:1; component edges and focus exceed 3:1.
+Ran an inline Node script against light/dark values parsed from `design-system/tokens.css`; WCAG relative luminance ratios:
 
 | Pair | Light | Dark | Minimum |
 |---|---:|---:|---:|
 | Main text / surface | 16.34:1 | 14.45:1 | 4.5:1 |
 | Muted text / surface | 8.10:1 | 8.85:1 | 4.5:1 |
 | Border / surface | 4.67:1 | 3.91:1 | 3:1 |
-| Focus ring / nearest background or surface | 5.94:1 | 10.01:1 | 3:1 |
-| Lowest risk icon/text / surface | 6.48:1 | 8.13:1 | 4.5:1 |
-| Primary button text / accent | 6.52:1 | 10.57:1 | 4.5:1 |
-
-## Audit counts
-
-| Review | Before fixes | After review |
-|---|---:|---:|
-| Hallmark manual checks | 3 | 0 |
-| Web Design Guidelines | 4 | 0 |
-| UI/UX Pro Max | 1 | 0 |
-
-Initial findings (8): Hallmark 3 (body overflow, dot metadata, nested mobile surface); web guidelines 4 (skip link, link hover, mobile input attributes, title case); UI/UX Pro Max 1 (static live regions). Final manual pass: 0. Source check: 19 labeled inputs, 7 states, 8 inline SVGs, no duplicate IDs, broken links, scripts, or external assets. Open `design-system/index.html` directly; no server/build needed.
+| Focus ring / background | 5.94:1 | 11.25:1 | 3:1 |
+| Focus ring / surface | 6.52:1 | 10.01:1 | 3:1 |
+| Low label / surface | 8.10:1 | 8.85:1 | 4.5:1 |
+| Elevated label / surface | 6.85:1 | 11.04:1 | 4.5:1 |
+| High label / surface | 7.23:1 | 8.13:1 | 4.5:1 |
+| Button text / accent | 6.52:1 | 10.57:1 | 4.5:1 |

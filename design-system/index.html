@@ -126,11 +126,18 @@
     }
 
     .header-note,
-    .section-note,
-    .hint,
-    .token-value {
+    .token-value,
+    .type-meta,
+    .footer-note {
       color: var(--color-muted);
       font-size: var(--text-small);
+    }
+
+    .section-note,
+    .hint {
+      color: var(--color-muted);
+      font-size: var(--text-label);
+      font-weight: var(--weight-regular);
     }
 
     .intro {
@@ -262,7 +269,7 @@
     .button--primary {
       border-color: var(--color-accent);
       background: var(--color-accent);
-      color: var(--color-on-accent);
+      color: var(--color-accent-ink);
     }
 
     .button--primary:hover {
@@ -392,7 +399,7 @@
       font-size: var(--text-label);
     }
 
-    .risk--normal .state-heading { color: var(--color-risk-normal); }
+    .risk--low .state-heading { color: var(--color-risk-low); }
     .risk--elevated .state-heading { color: var(--color-risk-elevated); }
     .risk--high .state-heading { color: var(--color-risk-high); }
     .state-heading h3 { color: currentColor; }
@@ -414,6 +421,8 @@
       padding-block: var(--space-4);
       border-top: var(--border-width) solid var(--color-border);
       border-bottom: var(--border-width) solid var(--color-border);
+      font-size: var(--text-label);
+      font-weight: var(--weight-regular);
     }
 
     .notice svg {
@@ -424,6 +433,10 @@
 
     .notice p + p {
       margin-top: var(--space-2);
+    }
+
+    .notice strong {
+      font-weight: var(--weight-regular);
     }
 
     .mobile-preview {
@@ -510,7 +523,7 @@
 
   <main id="main" class="page-shell">
     <section class="intro" aria-labelledby="page-title">
-      <h1 id="page-title">Reading Check Design System</h1>
+  <h1 id="page-title">Reading check design system</h1>
       <p>Calm, high-contrast components for a same-day ESP status check. This page shows reusable parts and states, not a working product screen.</p>
       <nav class="specimen-nav" aria-label="Specimen sections">
         <a href="#tokens">Tokens</a><a href="#type">Type</a><a href="#controls">Controls</a><a href="#results">Result states</a><a href="#limits">About and limits</a>
@@ -519,7 +532,7 @@
 
     <section id="tokens" class="section" aria-labelledby="tokens-title">
       <div class="section-heading">
-        <h2 id="tokens-title">Colour Tokens</h2>
+        <h2 id="tokens-title">Colour tokens</h2>
         <p>Light by default; dark colours follow your device setting.</p>
       </div>
       <dl class="token-list">
@@ -535,7 +548,7 @@
 
     <section id="type" class="section" aria-labelledby="type-title">
       <div class="section-heading">
-        <h2 id="type-title">Type Scale</h2>
+        <h2 id="type-title">Type scale</h2>
         <p>Five sizes, two weights, and the native system sans stack.</p>
       </div>
       <ul class="type-list">
@@ -543,13 +556,13 @@
         <li class="type-row"><span class="type-meta">Section: 20px / 600</span><span class="sample-section">Pressure readings</span></li>
         <li class="type-row"><span class="type-meta">Body: 16px / 400</span><span class="sample-body">Enter the values recorded for one day.</span></li>
         <li class="type-row"><span class="type-meta">Label: 14px / 600</span><span class="sample-label">Intake pressure</span></li>
-        <li class="type-row"><span class="type-meta">Small: 12px / 400</span><span class="sample-small">Pressure of fluid entering the pump.</span></li>
+        <li class="type-row"><span class="type-meta">Metadata: 12px / 400</span><span class="sample-small">Updated yesterday</span></li>
       </ul>
     </section>
 
     <section id="controls" class="section" aria-labelledby="controls-title">
       <div class="section-heading">
-        <h2 id="controls-title">Buttons and Fields</h2>
+        <h2 id="controls-title">Buttons and fields</h2>
         <p>Visible labels, units, helper text, and a field-level error.</p>
       </div>
       <div class="button-row" aria-label="Button examples">
@@ -632,7 +645,7 @@
 
     <section class="section" aria-labelledby="sample-error-title">
       <div class="section-heading">
-        <h2 id="sample-error-title">Validation Example</h2>
+        <h2 id="sample-error-title">Validation example</h2>
         <p>The sample field shows its label, unit, hint, and connected error.</p>
       </div>
       <div class="field" style="max-width:24rem">
@@ -645,39 +658,39 @@
 
     <section id="results" class="section" aria-labelledby="results-title">
       <div class="section-heading">
-        <h2 id="results-title">Result Card States</h2>
-        <p>Every band has a symbol and a text label. Example scores are omitted.</p>
+        <h2 id="results-title">Result card states</h2>
+        <p>Seven states pair clear text with icons. Scores are placeholders, not probabilities.</p>
       </div>
       <ul class="risk-list">
         <li><article class="result-state">
-          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8"></path></svg><h3>No Result Yet</h3></div>
-          <p class="state-copy">Enter the nine readings to see this day's status.</p>
+          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8"></path></svg><h3>No result yet</h3></div>
+          <p class="state-copy">Enter all nine readings to see the model score.</p>
         </article></li>
         <li><article class="result-state">
-          <div class="state-heading"><svg class="state-icon loading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" stroke-dasharray="42 14"></circle><path d="M21 12a9 9 0 0 0-9-9"></path></svg><h3>Checking Readings…</h3></div>
-          <p class="state-copy">The score and status will appear here.</p>
+          <div class="state-heading"><svg class="state-icon loading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" stroke-dasharray="42 14"></circle><path d="M21 12a9 9 0 0 0-9-9"></path></svg><h3>Checking these readings&hellip;</h3></div>
+          <p class="state-copy">The result will appear here.</p>
         </article></li>
-        <li><article class="result-state risk--normal">
-          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg><h3>Normal</h3></div>
-          <p class="state-copy">Band: Normal. The current-reading class appears separately.</p>
-          <p class="state-copy">Model score appears after a check; it is not a calibrated chance of failure.</p>
+        <li><article class="result-state risk--low">
+          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle></svg><h3>Low</h3></div>
+          <p class="state-copy">Model score 20 of 100. This is not a probability.</p>
+          <p class="state-copy">Preview: scores here are placeholders.</p>
         </article></li>
         <li><article class="result-state risk--elevated">
           <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6"></path><path d="M12 16h.01"></path></svg><h3>Elevated</h3></div>
-          <p class="state-copy">Band: Elevated. The current-reading class appears separately.</p>
-          <p class="state-copy">Model score appears after a check. Review readings with a qualified engineer.</p>
+          <p class="state-copy">Model score 64 of 100. This is not a probability.</p>
+          <p class="state-copy">Preview: scores here are placeholders.</p>
         </article></li>
         <li><article class="result-state risk--high">
           <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3 22 20H2L12 3Z"></path><path d="M12 9v5"></path><path d="M12 17h.01"></path></svg><h3>High</h3></div>
-          <p class="state-copy">Band: High. The current-reading class appears separately.</p>
-          <p class="state-copy">This prototype is not an operating alarm or diagnosis.</p>
+          <p class="state-copy">Model score 85 of 100. This is not a probability.</p>
+          <p class="state-copy">Preview: scores here are placeholders.</p>
         </article></li>
         <li><article class="result-state">
-          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M4 8h11M12 5l3 3-3 3M20 16H9m3-3-3 3 3 3"></path></svg><h3>Outside Training Range</h3></div>
-          <p class="state-copy">One or more readings fall outside the values seen during training. This is not an equipment limit.</p>
+          <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M4 8h11M12 5l3 3-3 3M20 16H9m3-3-3 3 3 3"></path></svg><h3>Outside training data range</h3></div>
+          <p class="state-copy">Intake pressure is outside the mock training data range. This is not an equipment limit.</p>
         </article></li>
         <li><article class="result-state">
-          <div class="state-heading state-heading--error"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6"></path><path d="M12 16h.01"></path></svg><h3>Can't Check These Readings</h3></div>
+          <div class="state-heading state-heading--error"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6"></path><path d="M12 16h.01"></path></svg><h3>Can&#8217;t check these readings</h3></div>
           <p class="state-copy">Enter a valid value in each marked field, then try again.</p>
         </article></li>
       </ul>
@@ -685,12 +698,12 @@
 
     <section class="section" aria-labelledby="mobile-title">
       <div class="section-heading">
-        <h2 id="mobile-title">375px Mobile Layout</h2>
+        <h2 id="mobile-title">Mobile layout at 375px</h2>
         <p>Field groups become one column. Units stay beside values.</p>
       </div>
       <div class="mobile-preview">
         <div class="mobile-preview-inner">
-          <h3>Operating Readings</h3>
+          <h3>Operating readings</h3>
           <p class="hint">All nine readings are required.</p>
           <div class="field-groups">
             <fieldset class="field-group">
@@ -730,13 +743,13 @@
 
     <section id="limits" class="section" aria-labelledby="limits-title">
       <div class="section-heading">
-        <h2 id="limits-title">About and Limits</h2>
+        <h2 id="limits-title">About and limits</h2>
       </div>
       <aside class="notice" aria-label="Educational prototype notice">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg>
         <div>
           <p><strong>Educational prototype.</strong> Dataset provenance is unverified and it covers six wells. Cross-well accuracy is near chance.</p>
-          <p>This result classifies readings from one day. It does not forecast future failure or remaining life, and it is not a diagnosis or equipment limit.</p>
+          <p>This check uses readings from one day. It is not a diagnosis or equipment limit.</p>
         </div>
       </aside>
     </section>

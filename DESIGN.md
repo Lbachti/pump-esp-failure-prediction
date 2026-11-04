@@ -15,13 +15,15 @@ Light mode is the default. Dark mode follows the operating-system preference. Us
 | `--color-border` | `#6B776F` | `#748279` | Field and component edges |
 | `--color-accent` | `#0F6A58` | `#83DFC6` | Primary action and selection |
 | `--color-focus-ring` | `#0F6A58` | `#83DFC6` | Keyboard focus |
-| `--color-on-accent` | `#FFFFFF` | `#13211B` | Primary button text |
+| `--color-accent-ink` | `#FFFFFF` | `#13211B` | Primary button text |
 
-Risk uses colour, an inline SVG symbol, and a visible label together:
+The Check screen keeps the nine-reading form and result on one page. About and limits is the second screen. Expert mode stays hidden until a URL is configured.
+
+Risk uses a visible band label with an inline SVG symbol. Low uses a neutral circle with no check mark; Elevated and High keep their colour and distinct icons. Show only the band as the result headline. Under it, show the model score in the form “Model score 64 of 100” and “This is not a probability.” Do not show a running/failed class.
 
 | State | CSS token | Light icon/text | Dark icon/text |
 |---|---|---|---|
-| Normal | `--color-risk-normal` | `#176B4B` | `#7FE0B1` |
+| Low | `--color-risk-low` | `#45534B` | `#B9C5BE` |
 | Elevated | `--color-risk-elevated` | `#805000` | `#FFD184` |
 | High | `--color-risk-high` | `#A32929` | `#FFA19B` |
 
@@ -40,6 +42,8 @@ Use the native system sans stack: `system-ui, -apple-system, BlinkMacSystemFont,
 | `--text-section` | 20px | 600 |
 | `--text-display` | 28px | 600 |
 
+Reserve 12px for non-essential metadata. Hints and the educational-prototype notice use at least 14px at weight 400; labels may use 14px at weight 600.
+
 Use a 4/8 spacing scale: 4, 8, 12, 16, 24, 32, 40, 48px. Pair related label, field, and hint within 8px; use 24px between field groups and 32px between specimen sections.
 
 ## Controls and surfaces
@@ -56,4 +60,4 @@ Transitions may use only named colour or opacity properties and last at most 180
 
 ## Risk and product language
 
-Call the numeric output a **model score**, not a calibrated chance of failure. Say it classifies the supplied readings for one day. It does not forecast a future failure or estimate remaining life. Keep the educational-prototype notice persistent. Do not invent operating limits from the training range.
+Call the numeric output a **model score**, not a probability. The static prototype uses placeholder scoring. Keep the educational-prototype notice persistent. Do not invent equipment limits from a training range.

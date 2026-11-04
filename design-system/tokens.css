@@ -13,10 +13,10 @@
   --color-border: #6B776F;
   --color-accent: #0F6A58;
   --color-focus-ring: #0F6A58;
-  --color-on-accent: #FFFFFF;
+  --color-accent-ink: #FFFFFF;
 
-  /* Risk signals pair colour with an inline icon and a visible label. */
-  --color-risk-normal: #176B4B;
+  /* Low is neutral; every risk signal pairs an inline icon with a visible label. */
+  --color-risk-low: #45534B;
   --color-risk-elevated: #805000;
   --color-risk-high: #A32929;
   --color-error: #A32929;
@@ -64,8 +64,8 @@
     --color-border: #748279;
     --color-accent: #83DFC6;
     --color-focus-ring: #83DFC6;
-    --color-on-accent: #13211B;
-    --color-risk-normal: #7FE0B1;
+    --color-accent-ink: #13211B;
+    --color-risk-low: #B9C5BE;
     --color-risk-elevated: #FFD184;
     --color-risk-high: #FFA19B;
     --color-error: #FFA19B;
