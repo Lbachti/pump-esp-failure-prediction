@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="expert-mode-url" content="">
+  <meta name="description" content="Check nine electric submersible pump readings with a placeholder score.">
+  <meta name="theme-color" content="#F2F5F3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121A16" media="(prefers-color-scheme: dark)">
+  <title>Check ESP readings | ESP PredictAI</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header page-shell">
+    <a class="wordmark" href="index.html">ESP PredictAI</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Check</a>
+      <a href="about.html">About and Limits</a>
+      <a class="expert-mode-link" hidden>Expert mode</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">Check ESP readings for one day</h1>
+      <p>ESP means electric submersible pump. Enter 9 readings for one day.</p>
+      <p class="intro-caveat">Educational prototype. The project has no verified record of the dataset source.</p>
+    </section>
+
+    <form id="reading-form" class="reading-form" method="post" novalidate>
+      <p class="hint form-required-note">All 9 readings are required.</p>
+      <div id="error-summary" class="error-summary" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+      <div class="field-groups">
+        <fieldset class="reading-group">
+          <legend>Pressure</legend>
+          <div class="group-fields">
+            <div class="field" data-field="intake_pressure">
+              <label for="intake-pressure">Intake pressure <span class="label-unit">(psi)</span></label>
+              <div class="input-with-unit"><input id="intake-pressure" name="intake_pressure" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="intake-pressure-hint"><span class="unit" aria-hidden="true">psi</span></div>
+              <p class="hint" id="intake-pressure-hint">Pressure of fluid entering the pump.</p>
+              <p class="field-error" id="intake-pressure-error" hidden></p>
+            </div>
+            <div class="field" data-field="discharge_pressure">
+              <label for="discharge-pressure">Discharge pressure <span class="label-unit">(psi)</span></label>
+              <div class="input-with-unit"><input id="discharge-pressure" name="discharge_pressure" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="discharge-pressure-hint"><span class="unit" aria-hidden="true">psi</span></div>
+              <p class="hint" id="discharge-pressure-hint">Pressure of fluid leaving the pump.</p>
+              <p class="field-error" id="discharge-pressure-error" hidden></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="reading-group">
+          <legend>Temperature</legend>
+          <div class="group-fields">
+            <div class="field" data-field="motor_temperature">
+              <label for="motor-temperature">Motor temperature <span class="label-unit">(°F)</span></label>
+              <div class="input-with-unit"><input id="motor-temperature" name="motor_temperature" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="motor-temperature-hint"><span class="unit" aria-hidden="true">°F</span></div>
+              <p class="hint" id="motor-temperature-hint">Temperature at the ESP motor windings.</p>
+              <p class="field-error" id="motor-temperature-error" hidden></p>
+            </div>
+            <div class="field" data-field="intake_temperature">
+              <label for="intake-temperature">Intake temperature <span class="label-unit">(°F)</span></label>
+              <div class="input-with-unit"><input id="intake-temperature" name="intake_temperature" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="intake-temperature-hint"><span class="unit" aria-hidden="true">°F</span></div>
+              <p class="hint" id="intake-temperature-hint">Temperature of well fluid at the pump intake.</p>
+              <p class="field-error" id="intake-temperature-error" hidden></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="reading-group">
+          <legend>Electrical</legend>
+          <div class="group-fields">
+            <div class="field" data-field="motor_current">
+              <label for="motor-current">Motor current <span class="label-unit">(A)</span></label>
+              <div class="input-with-unit"><input id="motor-current" name="motor_current" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="motor-current-hint"><span class="unit" aria-hidden="true">A</span></div>
+              <p class="hint" id="motor-current-hint">Electrical current drawn by the motor.</p>
+              <p class="field-error" id="motor-current-error" hidden></p>
+            </div>
+            <div class="field" data-field="motor_voltage">
+              <label for="motor-voltage">Motor voltage <span class="label-unit">(V)</span></label>
+              <div class="input-with-unit"><input id="motor-voltage" name="motor_voltage" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="motor-voltage-hint"><span class="unit" aria-hidden="true">V</span></div>
+              <p class="hint" id="motor-voltage-hint">Voltage supplied to the motor.</p>
+              <p class="field-error" id="motor-voltage-error" hidden></p>
+            </div>
+            <div class="field" data-field="drive_frequency">
+              <label for="drive-frequency">Drive frequency <span class="label-unit">(Hz)</span></label>
+              <div class="input-with-unit"><input id="drive-frequency" name="drive_frequency" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="drive-frequency-hint"><span class="unit" aria-hidden="true">Hz</span></div>
+              <p class="hint" id="drive-frequency-hint">Frequency sent by the variable speed drive.</p>
+              <p class="field-error" id="drive-frequency-error" hidden></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="reading-group">
+          <legend>Pump readings</legend>
+          <div class="group-fields">
+            <div class="field" data-field="vibration">
+              <label for="vibration">Vibration <span class="label-unit">(g)</span></label>
+              <div class="input-with-unit"><input id="vibration" name="vibration" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="vibration-hint"><span class="unit" aria-hidden="true">g</span></div>
+              <p class="hint" id="vibration-hint">Measured pump vibration.</p>
+              <p class="field-error" id="vibration-error" hidden></p>
+            </div>
+            <div class="field" data-field="production_rate">
+              <label for="production-rate">Production rate <span class="label-unit">(bbl/d)</span></label>
+              <div class="input-with-unit"><input id="production-rate" name="production_rate" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true" aria-describedby="production-rate-hint"><span class="unit" aria-hidden="true">bbl/d</span></div>
+              <p class="hint" id="production-rate-hint">Volume produced per day.</p>
+              <p class="field-error" id="production-rate-error" hidden></p>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <button class="button" type="submit">Check Readings</button>
+    </form>
+
+    <section class="result-section" aria-labelledby="result-section-title">
+      <div class="section-heading">
+        <h2 id="result-section-title">Reading check</h2>
+      </div>
+      <p id="preview-banner" class="preview-banner">Preview: scores here are placeholders.</p>
+      <article id="result-card" class="result-card" data-state="empty" aria-live="polite" aria-atomic="true">
+        <div class="result-heading">
+          <svg class="result-icon icon-neutral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle></svg>
+          <h3>No result yet</h3>
+        </div>
+        <p class="result-copy">Complete the nine readings, then select Check readings.</p>
+      </article>
+      <aside class="prototype-notice" aria-label="Educational prototype notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg>
+        <p><strong>Educational prototype.</strong> The project has no verified record of the dataset source. The dataset covers 6 wells. Tests on different wells perform near chance. Do not use this reading check for operating decisions.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="page-shell page-footer">
+    <p>Reading check prototype for ESP PredictAI.</p>
+  </footer>
+</body>
+</html>
