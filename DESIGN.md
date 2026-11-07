@@ -19,6 +19,8 @@ Light mode is the default. Dark mode follows the operating-system preference. Us
 
 The Check screen keeps the nine-reading form and result on one page. About and limits is the second screen. Expert mode stays hidden until a URL is configured.
 
+The persistent educational-prototype notice says: “This checks one day of readings. It does not forecast failure or remaining life.”
+
 Risk uses a visible band label with an inline SVG symbol. Low uses a neutral circle with no check mark; Elevated and High keep their colour and distinct icons. Show only the band as the result headline. Under it, show the model score in the form “Model score 64 of 100” and “This is not a probability.” Do not show a running/failed class.
 
 | State | CSS token | Light icon/text | Dark icon/text |
@@ -26,6 +28,8 @@ Risk uses a visible band label with an inline SVG symbol. Low uses a neutral cir
 | Low | `--color-risk-low` | `#45534B` | `#B9C5BE` |
 | Elevated | `--color-risk-elevated` | `#805000` | `#FFD184` |
 | High | `--color-risk-high` | `#A32929` | `#FFA19B` |
+
+Pair each band with this plain-language explanation: Low, “These readings resemble the model's running examples more than its failed examples. This does not mean the pump is healthy.” Elevated, “These readings sit between the model's running and failed examples.” High, “These readings resemble the model's failed examples more than its running examples.”
 
 Never use colour as the only state signal. Do not use these bands as equipment limits.
 Field errors reuse the High signal colour through `--color-error` and always include correction text.

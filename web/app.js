@@ -4,6 +4,7 @@ const form = document.querySelector("#reading-form");
 const resultCard = document.querySelector("#result-card");
 const errorSummary = document.querySelector("#error-summary");
 const previewBanner = document.querySelector("#preview-banner");
+const announcer = document.querySelector("#announcements");
 
 // MOCK - replaced in Milestone 4
 if (previewBanner) previewBanner.textContent = "Preview: scores here are placeholders.";
@@ -35,6 +36,12 @@ const MOCK_TRAINING_RANGES = Object.freeze({
 
 // MOCK - replaced in Milestone 4
 const MOCK_BAND_CUTOFFS = Object.freeze({ elevated: 0.4, high: 0.7 });
+
+const BAND_EXPLANATIONS = Object.freeze({
+  low: "These readings resemble the model's running examples more than its failed examples. This does not mean the pump is healthy.",
+  elevated: "These readings sit between the model's running and failed examples.",
+  high: "These readings resemble the model's failed examples more than its running examples.",
+});
 
 // MOCK - replaced in Milestone 4
 function mockScore(readings) {
@@ -104,6 +111,14 @@ function clearErrorSummary() {
   delete errorSummary.dataset.signature;
 }
 
+function announce(message) {
+  if (!announcer) return;
+  announcer.textContent = "";
+  window.requestAnimationFrame(() => {
+    announcer.textContent = message;
+  });
+}
+
 function showErrorSummary(invalidFields) {
   const signature = invalidFields
     .map((field) => `${field.key}:${errorFor(field, inputFor(field).value)}`)
@@ -118,7 +133,7 @@ function showErrorSummary(invalidFields) {
     const item = document.createElement("li");
     const link = document.createElement("a");
     link.href = `#${field.id}`;
-      link.textContent = `${field.label}: ${errorFor(field, inputFor(field).value)}`;
+    link.textContent = `${field.label}: ${errorFor(field, inputFor(field).value)}`;
     item.append(link);
     links.append(item);
   }
@@ -144,17 +159,50 @@ function iconMarkup(kind) {
 }
 
 function renderResult({ state, label, copy, score, detail }) {
-  const heading = label ? `<h3>${label}</h3>` : "";
   const resultClass = state ? ` result-band-${state}` : "";
-  const scoreLine = score !== undefined && score !== null
-    ? `<p class="result-score result-score--small">Model score ${score} of 100. This is not a probability.</p>`
-    : "";
-  const detailLine = detail ? `<p class="result-detail">${detail}</p>` : "";
   resultCard.className = `result-card${resultClass}`;
   resultCard.dataset.state = state || "empty";
   resultCard.setAttribute("aria-busy", state === "loading" ? "true" : "false");
-  resultCard.setAttribute("aria-live", state === "error" ? "off" : "polite");
-  resultCard.innerHTML = `<div class="result-heading">${iconMarkup(state || "neutral")}${heading}</div>${scoreLine}${copy ? `<p class="result-copy">${copy}</p>` : ""}${detailLine}`;
+  resultCard.removeAttribute("aria-live");
+  resultCard.removeAttribute("aria-atomic");
+
+  const row = document.createElement("div");
+  row.className = "result-heading";
+  const iconHolder = document.createElement("span");
+  iconHolder.innerHTML = iconMarkup(state || "neutral");
+  row.append(iconHolder.firstElementChild);
+  if (label) {
+    const heading = document.createElement("h3");
+    heading.textContent = label;
+    row.append(heading);
+  }
+  resultCard.replaceChildren(row);
+
+  if (score !== undefined && score !== null) {
+    const scoreLine = document.createElement("p");
+    scoreLine.className = "result-score result-score--small";
+    scoreLine.textContent = `Model score ${score} of 100. This is not a probability.`;
+    resultCard.append(scoreLine);
+  }
+  if (copy) {
+    const copyLine = document.createElement("p");
+    copyLine.className = "result-copy";
+    copyLine.textContent = copy;
+    resultCard.append(copyLine);
+  }
+  if (detail) {
+    const detailLine = document.createElement("p");
+    detailLine.className = "result-detail";
+    detailLine.textContent = detail;
+    resultCard.append(detailLine);
+  }
+}
+
+function showSuccessfulResult(result, announcement) {
+  renderResult(result);
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  resultCard.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest" });
+  announce(announcement);
 }
 
 function readValues() {
@@ -178,7 +226,9 @@ function displayBand(readings) {
   const score = mockScore(readings);
   const band = bandFor(score);
   const formattedScore = new Intl.NumberFormat().format(Math.round(score * 100));
-  renderResult({ state: band, label: band === "low" ? "Low" : band === "elevated" ? "Elevated" : "High", score: formattedScore });
+  const label = band === "low" ? "Low" : band === "elevated" ? "Elevated" : "High";
+  showSuccessfulResult({ state: band, label, score: formattedScore, copy: BAND_EXPLANATIONS[band] },
+    `Reading check complete. ${label}. Model score ${formattedScore} of 100.`);
 }
 
 let submitAttempted = false;
@@ -194,7 +244,8 @@ if (form) {
     const invalidFields = READING_FIELDS.filter((field) => validateField(field));
     if (invalidFields.length) {
       showErrorSummary(invalidFields);
-      renderResult({ state: "error", label: "Can’t check these readings", copy: "Fix the marked fields, then check the readings again." });
+      renderResult({ state: "error", label: "Can’t check these readings", copy: "Fix the marked fields, then select Check readings." });
+      announce(`${invalidFields.length} readings need attention. Fix the marked fields.`);
       inputFor(invalidFields[0]).focus();
       return;
     }
@@ -202,6 +253,7 @@ if (form) {
     const readings = readValues();
     const outOfRange = findOutOfRange(readings);
     renderResult({ state: "loading", label: "Checking these readings…" });
+    announce("Checking these readings…");
 
     pendingCheck = window.setTimeout(() => {
       if (outOfRange.length) {
@@ -209,7 +261,8 @@ if (form) {
         const note = names.length === 1
           ? `${names[0]} is outside the preview’s mock training data range. This is not an equipment limit.`
           : `${names.join(", ")} are outside the preview’s mock training data range. This is not an equipment limit.`;
-        renderResult({ state: "out-of-range", label: "Outside training data range", copy: note });
+        showSuccessfulResult({ state: "out-of-range", label: "Outside training data range", copy: note },
+          `Reading check complete. ${note}`);
         return;
       }
       displayBand(readings);

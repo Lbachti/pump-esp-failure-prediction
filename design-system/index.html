@@ -566,7 +566,7 @@
         <p>Visible labels, units, helper text, and a field-level error.</p>
       </div>
       <div class="button-row" aria-label="Button examples">
-        <button class="button button--primary" type="button">Check Readings</button>
+        <button class="button button--primary" type="button">Check readings</button>
         <button class="button" type="button">Clear Fields</button>
       </div>
 
@@ -673,17 +673,17 @@
         <li><article class="result-state risk--low">
           <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle></svg><h3>Low</h3></div>
           <p class="state-copy">Model score 20 of 100. This is not a probability.</p>
-          <p class="state-copy">Preview: scores here are placeholders.</p>
+          <p class="state-copy">These readings resemble the model's running examples more than its failed examples. This does not mean the pump is healthy.</p>
         </article></li>
         <li><article class="result-state risk--elevated">
           <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6"></path><path d="M12 16h.01"></path></svg><h3>Elevated</h3></div>
           <p class="state-copy">Model score 64 of 100. This is not a probability.</p>
-          <p class="state-copy">Preview: scores here are placeholders.</p>
+          <p class="state-copy">These readings sit between the model's running and failed examples.</p>
         </article></li>
         <li><article class="result-state risk--high">
           <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3 22 20H2L12 3Z"></path><path d="M12 9v5"></path><path d="M12 17h.01"></path></svg><h3>High</h3></div>
           <p class="state-copy">Model score 85 of 100. This is not a probability.</p>
-          <p class="state-copy">Preview: scores here are placeholders.</p>
+          <p class="state-copy">These readings resemble the model's failed examples more than its running examples.</p>
         </article></li>
         <li><article class="result-state">
           <div class="state-heading"><svg class="state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M4 8h11M12 5l3 3-3 3M20 16H9m3-3-3 3 3 3"></path></svg><h3>Outside training data range</h3></div>
@@ -735,7 +735,7 @@
                 <div class="field"><label for="mobile-production">Production rate <span class="hint">(bbl/d)</span></label><div class="unit-control"><input id="mobile-production" name="mobile_production" type="number" inputmode="decimal" step="any" autocomplete="off" required aria-required="true"><span class="unit" aria-hidden="true">bbl/d</span></div></div>
               </div>
             </fieldset>
-            <button class="button button--primary" type="button">Check Readings</button>
+            <button class="button button--primary" type="button">Check readings</button>
           </div>
         </div>
       </div>
@@ -749,7 +749,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg>
         <div>
           <p><strong>Educational prototype.</strong> Dataset provenance is unverified and it covers six wells. Cross-well accuracy is near chance.</p>
-          <p>This check uses readings from one day. It is not a diagnosis or equipment limit.</p>
+          <p>This checks one day of readings. It does not forecast failure or remaining life.</p>
         </div>
       </aside>
     </section>
