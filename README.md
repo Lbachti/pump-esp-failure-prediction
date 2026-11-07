@@ -85,6 +85,16 @@ python -m streamlit run app.py
 
 Open the local URL printed by Streamlit, normally `http://localhost:8501`.
 
+### Run the one-day reading check
+
+The static reading check uses the saved model through a small FastAPI service. From the project root, run:
+
+```powershell
+python -m uvicorn api:app --reload
+```
+
+Open `http://127.0.0.1:8000`. The service loads `models/esp_predictai_model.joblib` at startup and serves the pages in `web/`. If you train and save a replacement model, restart the service to load it. When the model is unavailable, the page disables scoring and explains how to start or restore it.
+
 ### Data loading behaviour
 
 At startup the app attempts to download:
@@ -103,6 +113,7 @@ No model is preloaded into the session. Train a model in **ML Model Training**, 
 
 ```text
 pump ESP failure prediction/
+├── api.py                       # FastAPI service for the static reading check
 ├── app.py
 ├── requirements.txt
 ├── README.md

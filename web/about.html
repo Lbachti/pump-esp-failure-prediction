@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#F2F5F3" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121A16" media="(prefers-color-scheme: dark)">
   <title>About and limits | ESP PredictAI</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
@@ -30,7 +31,7 @@
 
     <section class="about-section" aria-labelledby="scope-title">
       <h2 id="scope-title">What the score means</h2>
-      <p>The preview score comes from a fixed placeholder formula. It is not a probability or field measurement. No trained model runs in this prototype.</p>
+      <p>The saved model scores this day’s readings for same-day running or failed status. The page shows its model score on a 0 to 100 scale and a Low, Elevated, or High band. The score is not a calibrated field probability and does not predict future failure.</p>
     </section>
 
     <section class="about-section" aria-labelledby="data-title">
@@ -44,7 +45,7 @@
 
     <section class="about-section" aria-labelledby="range-title">
       <h2 id="range-title">Reading ranges</h2>
-      <p>The ranges in this preview are placeholders. An out-of-range note refers to the preview data range, not an equipment limit.</p>
+      <p>An out-of-range note compares a reading with the minimum and maximum values in the saved model’s training data. These ranges describe the data used to fit the model; they are not equipment limits.</p>
     </section>
 
     <aside class="prototype-notice" aria-label="Educational prototype notice">

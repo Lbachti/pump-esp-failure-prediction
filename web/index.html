@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#F2F5F3" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121A16" media="(prefers-color-scheme: dark)">
   <title>Check readings | ESP PredictAI</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
@@ -113,14 +114,14 @@
         </fieldset>
       </div>
 
-      <button class="button" type="submit">Check readings</button>
+      <button class="button" type="submit" aria-describedby="model-status" disabled>Check readings</button>
     </form>
 
     <section class="result-section" aria-labelledby="result-section-title">
       <div class="section-heading">
         <h2 id="result-section-title">Check readings</h2>
       </div>
-      <p id="preview-banner" class="preview-banner">Preview: scores here are placeholders.</p>
+      <p id="model-status" class="model-status" role="status" aria-live="polite" aria-atomic="true">Connecting to the saved model…</p>
       <article id="result-card" class="result-card" data-state="empty">
         <div class="result-heading">
           <svg class="result-icon icon-neutral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle></svg>

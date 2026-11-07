@@ -1,7 +1,7 @@
 /* Hallmark · v2.0.0 · genre: modern-minimal · shape: two-page tool · theme: locked project tokens */
 /* Critique: make the reading form calm, direct, and usable without specialist knowledge. */
 /* Waivers: required nine-field help and the persistent safety notice exceed Hallmark's 80-word guide; both are owner-approved. */
-/* Waiver: this is a static prototype; score and training ranges are placeholders. */
+/* The static page uses the saved model through the same-origin API. */
 @import url("../design-system/tokens.css");
 
 *,
@@ -394,7 +394,7 @@ h3 {
   border-bottom: var(--border-width) solid var(--color-border);
 }
 
-.preview-banner {
+.model-status {
   padding-block: var(--space-3);
   border-block: var(--border-width) solid var(--color-border);
   color: var(--color-text);

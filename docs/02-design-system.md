@@ -8,10 +8,10 @@
 |---|---|
 | Result headline | One band only: Low, Elevated, or High. No running/failed class. |
 | Low state | Neutral circle with no check mark. Elevated and High retain distinct colour, icon, and label. |
-| Score line | “Model score 64 of 100. This is not a probability.” Placeholder values carry a visible preview banner. |
+| Score line | “Model score 64 of 100. This is not a probability.” Live values come from the saved model API. |
 | Type | Hints and prototype notice use 14px / 400. 12px is reserved for non-essential metadata. |
 
-The one-day reading context stays explicit. The prototype keeps the unverified-provenance, six-well, near-chance cross-well, and operating-decision caveats visible. Preview ranges are not equipment limits.
+The one-day reading context stays explicit. The prototype keeps the unverified-provenance, six-well, near-chance cross-well, and operating-decision caveats visible. Training-data ranges are not equipment limits.
 
 ## Token contrast
 

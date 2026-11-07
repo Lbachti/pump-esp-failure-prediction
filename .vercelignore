@@ -1,0 +1,14 @@
+.venv/
+venv/
+env/
+.codex/
+.streamlit/
+.pytest_cache/
+__pycache__/
+data/
+docs/
+tests/
+esp-predictai-redesign/
+nb_*.txt
+notebook_*.txt
+app.py
